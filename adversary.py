@@ -162,5 +162,5 @@ def uni_adv_eval(model, uni_pert, random_transform,
             plt.show()
             
     succ_rate = succ/total
-    print(succ_rate)
+    print(f"Success rate: {succ_rate}")
     return succ_rate
