@@ -86,7 +86,7 @@ def adv_eval(model, eval_steps, adv_img,
 # Universal&Robust pertubation crafting via EoT
 def uni_eot_craft(model: nn.Module, T: list,
                   dataloader: DataLoader, epochs: int, step_size: float,
-                  eps: float, device, optimizer=None, 
+                  eps: float, device, shape=(1, 1, 28, 28), optimizer=None, 
                   clip_below=0., clip_above=1.,
                   criterion=None, verbose=True, log_interval=100):
     
@@ -117,7 +117,7 @@ def uni_eot_craft(model: nn.Module, T: list,
     
     if criterion is None:
         criterion = nn.CrossEntropyLoss()
-    uni_pert = torch.zeros((1, 1, 28, 28)).to(device)
+    uni_pert = torch.zeros(shape).to(device)
     for epoch in range(1, epochs+1):
         uni_pert, average_loss, max_loss = _uni_craft_step(uni_pert)
         if verbose and epoch % log_interval == 0:

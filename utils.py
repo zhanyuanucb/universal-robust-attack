@@ -9,12 +9,13 @@ def get_clipped_loss(loss_fn, min_val, max_val):
 
 class TargetClassSet(Dataset):
     
-    def __init__(self, data_dir):
+    def __init__(self, data_dir, transform=None):
         self.data, self.targets = torch.load(data_dir)
+        self.transform = transform
         
     def __getitem__(self, index):
         img, target = self.data[index], self.targets[index]
-        return img, target
+        return self.transform(img), target
     
     def __len__(self):
         return self.data.size(0)
